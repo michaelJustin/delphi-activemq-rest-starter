@@ -1,0 +1,73 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{6E0B7C1A-3D2F-4B8E-9A51-2C7D4E8F1A90}</ProjectGuid>
+    <MainSource>DelphiRestReceiver.dpr</MainSource>
+    <Config Condition="'$(Config)'==''">Debug</Config>
+    <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
+    <ProjectVersion>12.0</ProjectVersion>
+    <!-- Change these two paths if Indy or JsonDataObjects live elsewhere -->
+    <IndyLib>..\..\Indy\Lib</IndyLib>
+    <JsonDataObjectsSource>..\..\JsonDataObjects\Source</JsonDataObjectsSource>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
+    <Base>true</Base>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''">
+    <Cfg_1>true</Cfg_1>
+    <CfgParent>Base</CfgParent>
+    <Base>true</Base>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
+    <Cfg_2>true</Cfg_2>
+    <CfgParent>Base</CfgParent>
+    <Base>true</Base>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Base)'!=''">
+    <DCC_UnitSearchPath>$(IndyLib)\Core;$(IndyLib)\Protocols;$(IndyLib)\System;$(JsonDataObjectsSource);$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+    <DCC_IncludePath>$(IndyLib)\Core;$(IndyLib)\System;$(DCC_IncludePath)</DCC_IncludePath>
+    <DCC_DcuOutput>dcu</DCC_DcuOutput>
+    <DCC_ExeOutput>.</DCC_ExeOutput>
+    <DCC_DependencyCheckOutputName>DelphiRestReceiver.exe</DCC_DependencyCheckOutputName>
+    <DCC_ImageBase>00400000</DCC_ImageBase>
+    <DCC_Platform>x86</DCC_Platform>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Cfg_1)'!=''">
+    <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Cfg_2)'!=''">
+    <DCC_DebugInformation>false</DCC_DebugInformation>
+    <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
+  </PropertyGroup>
+  <ItemGroup>
+    <DelphiCompile Include="DelphiRestReceiver.dpr">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DCCReference Include="OrderModel.pas"/>
+    <BuildConfiguration Include="Base">
+      <Key>Base</Key>
+    </BuildConfiguration>
+    <BuildConfiguration Include="Debug">
+      <Key>Cfg_1</Key>
+      <CfgParent>Base</CfgParent>
+    </BuildConfiguration>
+    <BuildConfiguration Include="Release">
+      <Key>Cfg_2</Key>
+      <CfgParent>Base</CfgParent>
+    </BuildConfiguration>
+  </ItemGroup>
+  <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+  <ProjectExtensions>
+    <Borland.Personality>Delphi.Personality.12</Borland.Personality>
+    <Borland.ProjectType/>
+    <BorlandProject>
+      <Delphi.Personality>
+        <Source>
+          <Source Name="MainSource">DelphiRestReceiver.dpr</Source>
+        </Source>
+      </Delphi.Personality>
+    </BorlandProject>
+    <ProjectFileVersion>12</ProjectFileVersion>
+  </ProjectExtensions>
+</Project>

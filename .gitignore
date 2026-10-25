@@ -1,0 +1,14 @@
+# Maven
+target/
+
+# Delphi
+*.dcu
+dcu/
+*.exe
+*.local
+*.identcache
+*.res
+__history/
+__recovery/
+*.~*
+*.stat
